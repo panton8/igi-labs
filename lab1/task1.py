@@ -22,9 +22,8 @@ def operation_with_nums(num1, num2, operation):
 def even_list(list_of_nums):
     return [num for num in list_of_nums if num % 2 == 0]
 
-print("Enter the num")
-num1 = int(input())
-print(operation_with_nums(num1, 2, "add"))
+
+print(operation_with_nums(1, 2, "add"))
 print(operation_with_nums(8, 8, "mul"))
 print(operation_with_nums(1, 0, "div"))
 print(operation_with_nums(0, 0, "Anton"))
