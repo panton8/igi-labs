@@ -1,4 +1,4 @@
-print("Hello, world")
+print("Hello,")
 
 
 def operation_with_nums(num1, num2, operation):
