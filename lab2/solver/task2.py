@@ -49,13 +49,13 @@ class Container:
         while self.process:
             old_user = self.username
             print("Enter the command: ")
-            command = input('> ').split()
-            if command[0] == "switch":
+            commands = input('> ').split()
+            if commands[0] == "switch":
                 ans = input("Do you want to save data before switching? [y/n]\n")
                 if ans.lower() == "y":
                     self.save()
-            if self.take_command(command):
-                print(self.take_command(command))
+            if self.take_command(commands):
+                print(self.take_command(commands))
             print(self.storage)
             if old_user != self.username:
                 ans = input("Do you want to load data? [y/n]\n")
@@ -63,27 +63,42 @@ class Container:
                     self.load()
         return
 
-    def take_command(self, command):
-        match command[0]:
+    def take_command(self, commands):
+        match commands[0]:
             case  "add":
-                self.add(command[1])
+                for command in commands[1:]:
+                    self.add(command)
             case "remove":
-                if self.find(command[1]):
-                    self.remove(command[1])
+                if self.find(commands[1]):
+                    self.remove(commands[1])
                 else:
                     return "No such element"
             case "find":
-                self.find(command[1])
+                res = ""
+                for command in commands[1:]:
+                    if self.find(command):
+                        res = res + f"{command}: Found\n"
+                    else:
+                        res = res + f"{command}: No such element\n"
+                return res
+
             case "list":
                 self.list()
             case "grep":
-                self. grep(command[1])
+                reg = self.grep(commands[1])
+                res = ""
+                for num in self.storage:
+                    if num in reg:
+                        res = res + f"{num}: Found\n"
+                    else:
+                        res = res + f"{num}: No such element\n"
+                return res
             case "save":
                 self.save()
             case "load":
                 self.load()
             case "switch":
-                self.switch(command[1])
+                self.switch(commands[1])
                 return f"Welcome, {self.username}"
             case "break":
                 self.process = False
@@ -97,7 +112,6 @@ class Container:
                        "save\n" \
                        "load\n" \
                        "switch\n"
-
             case _:
                 return "Incorrect operation\nEnter 'help' for a list of built-in commands."
 
