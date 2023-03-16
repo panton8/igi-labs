@@ -20,7 +20,7 @@ def amount_of_sentences(text):
                      "Sun.",  "sec.", "in.", "lbs.", "min.", "hr.", "wk.", "cent.", "yr."}
     words = text.split()
     for word in words:
-        if word not in abbreviations and not word[-2].isupper() and word.endswith(".") or word.endswith("!") or word.endswith("?") or word.endswith("..."):
+        if len(word) > 1 and word not in abbreviations and not word[-2].isupper() and word.endswith(".") or word.endswith("!") or word.endswith("?") or word.endswith("..."):
             size += 1
     return size
 
@@ -52,8 +52,10 @@ def average_word_len(text):
     amount_of_chars = 0
     words = text.split()
     amount_of_words = len(words)
+    if amount_of_words == 0:
+        return 0
     for word in words:
-        if re.match("^[0-9.]*$", word):
+        if not re.match("^[A-Za-z'.]*$", word):
             amount_of_words -= 1
             continue
         elif word.endswith("..."):
@@ -88,14 +90,15 @@ def main():
            "He could do anything he wanted to do. What could Deborah do? She wasn't married. She was divorced. " \
            "Could she control her son? He would listen to his father. But his father was not there. " \
            "In Feb. his father moved in another city." """
-    text = input("Enter text:\n")
+    """text = input("Enter text:\n")
     ans = input("Do you want to change K and N for N-grams? [y/n]\n")
     if ans.lower() == "y":
         K = int(input("Enter K: "))
         N = int(input("Enter N: "))
         print(parse_text(text, K, N))
     else:
-        print(parse_text(text))
+        print(parse_text(text)) """
+    print(average_word_len("Her son A1B2C3 didn't listen to her. Her son was 16 yr. old..."))
 
 
 if __name__ == "__main__":
