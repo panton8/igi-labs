@@ -35,7 +35,9 @@ def amount_of_non_declarative_sentences(text):
 
 def average_len_of_sent(text):
     amount_of_chars = 0
-    words = text.split(" ")
+    words = text.split()
+    if not words:
+        return 0
     for word in words:
         if re.match("^[0-9.]*$", word):
             continue
@@ -90,15 +92,14 @@ def main():
            "He could do anything he wanted to do. What could Deborah do? She wasn't married. She was divorced. " \
            "Could she control her son? He would listen to his father. But his father was not there. " \
            "In Feb. his father moved in another city." """
-    """text = input("Enter text:\n")
+    text = input("Enter text:\n")
     ans = input("Do you want to change K and N for N-grams? [y/n]\n")
     if ans.lower() == "y":
         K = int(input("Enter K: "))
         N = int(input("Enter N: "))
         print(parse_text(text, K, N))
     else:
-        print(parse_text(text)) """
-    print(average_word_len("Her son A1B2C3 didn't listen to her. Her son was 16 yr. old..."))
+        print(parse_text(text))
 
 
 if __name__ == "__main__":
