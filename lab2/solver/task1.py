@@ -47,6 +47,8 @@ def average_len_of_sent(text):
             amount_of_chars += len(word) - 1
         else:
             amount_of_chars += len(word)
+    if amount_of_sentences(text) == 0:
+        return "No sentences"
     return amount_of_chars / amount_of_sentences(text)
 
 
