@@ -29,14 +29,12 @@ class Container:
         with open(self.user_file, 'w') as file:
             for line in self.list():
                 file.write(line + "\n")
-            file.close()
 
     def load(self):
         if os.path.exists(self.user_file):
             with open(self.user_file, 'r') as file:
                 for line in file.readlines():
                     self.add(line[:len(line)-1])
-            file.close()
 
     def switch(self, username):
         self.username = username
