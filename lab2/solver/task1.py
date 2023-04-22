@@ -20,15 +20,19 @@ def amount_of_sentences(text):
                      "Sun.",  "sec.", "in.", "lbs.", "min.", "hr.", "wk.", "cent.", "yr."}
     words = text.split()
     for word in words:
-        if len(word) > 1 and word not in abbreviations and not word[-2].isupper() and word.endswith(".") or word.endswith("!") or word.endswith("?") or word.endswith("..."):
+        if len(word) > 1 \
+                and word not in abbreviations \
+                and not word[-2].isupper() \
+                and word.endswith(".") or word.endswith("!") or word.endswith("?") or word.endswith("..."):
             size += 1
     return size
 
 
 def amount_of_non_declarative_sentences(text):
+    sentences = text.split()
     size = 0
-    for word in text:
-        if word.endswith("!") or word.endswith("?"):
+    for sent in sentences:
+        if sent.endswith("!") or sent.endswith("?"):
             size += 1
     return size
 
