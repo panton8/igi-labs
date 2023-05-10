@@ -1,0 +1,1 @@
+from lab3.test.test_value import *
