@@ -1,5 +1,5 @@
-from lab3.serializers.serializer_json import Json
-from lab3.serializers.serializer_xml import Xml
+from serializers.serializer_json import Json
+from serializers.serializer_xml import Xml
 
 
 class Factory:

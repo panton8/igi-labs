@@ -1,5 +1,5 @@
 import inspect
-from lab3.serializers.consts import nonetype, moduletype, codetype, celltype, \
+from serializers.consts import nonetype, moduletype, codetype, celltype, \
                                     functype, bldinfunctype, \
                                     mapproxytype, wrapdesctype, metdesctype, getsetdesctype, \
                                     CODE_PROPS, UNIQUE_TYPES
