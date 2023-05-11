@@ -111,3 +111,24 @@ class Stadium:
 
     def display_count(self):
         print('ALL employees amount: %d' % Stadium.matches_count)
+
+def dec(foo):
+    def wr(*args, **kwargs):
+        return 10 * foo(*args, **kwargs)
+    return wr
+
+def for_dec(a):
+    return 2 * a
+
+decorated_func = dec(for_dec)
+
+
+class Q(type):
+    def __new__(cls, name, bases, attrs):
+        attrs['my_attrs'] = "TestMessage"
+
+        return super().__new__(cls, name, bases, attrs)
+
+
+class W(metaclass=Q):
+    pass

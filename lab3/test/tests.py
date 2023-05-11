@@ -1,4 +1,4 @@
-from lab3.serializers.factory import Factory
+from serializers.factory import Factory
 from lab3.test.test_value import *
 
 serializer = Factory.create_serializer(".json")
@@ -169,3 +169,13 @@ def test_35():
     assert tmp.num1 == a.num1
     assert tmp.foo(4) == a.foo(4)
 
+
+def test_36():
+    df = serializer.dumps(decorated_func)
+    df = serializer.loads(df)
+    before = [decorated_func(i) for i in range(100)]
+    after = [df(i) for i in range(100)]
+    assert before == after
+
+def test_37():
+    assert serializer.loads(serializer.dumps(W().my_attrs)) == W().my_attrs
