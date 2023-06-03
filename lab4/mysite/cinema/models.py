@@ -1,3 +1,6 @@
+from audioop import reverse
+
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
@@ -74,6 +77,7 @@ class Country(models.Model):
 
 class Cashier(models.Model):
     full_name = models.CharField(max_length=100)
+    photo = models.ImageField(upload_to="photos/cashiers")
 
     def __str__(self):
         return self.full_name
@@ -85,7 +89,7 @@ class Film(models.Model):
     genre = models.ForeignKey(Genre, on_delete=models.PROTECT)
     duration = models.PositiveIntegerField(validators=[MinValueValidator(45), MaxValueValidator(240)], help_text="duration(minutes)")
     budget = models.FloatField()
-    poster = models.ImageField(upload_to="photos/")
+    poster = models.ImageField(upload_to="photos/films")
     description = models.TextField(blank=False)
     rating = models.FloatField(validators=[MinValueValidator(1.0), MaxValueValidator(10.0)], help_text="from 1.0 to 10.0")
 
@@ -101,8 +105,9 @@ class Film(models.Model):
 
 class Hall(models.Model):
     name = models.CharField(max_length=30)
-    capacity = models.PositiveIntegerField(default=150, validators=[MinValueValidator(50), MaxValueValidator(800)])
-    available_seats = models.IntegerField(default=capacity, validators=[MinValueValidator(0), MaxValueValidator(capacity)])
+    photo = models.ImageField(upload_to="photos/halls")
+    capacity = models.IntegerField(validators=[MinValueValidator(50), MaxValueValidator(800)])
+    available_seats = models.IntegerField(validators=[MinValueValidator(0)])
     cashiers = models.ManyToManyField(Cashier, through="Session")
 
     def __str__(self):
