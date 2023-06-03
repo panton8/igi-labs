@@ -3,10 +3,12 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('', home_screen_view, name='home'),
-    path('films', films_view, name="film"),
-    path('films/<int:hall_id>/', films_view),
-    path('halls', halls_view, name='hall'),
-    path('halls/<int:hall_id>/', halls_view),
-    path('register/', sign_up, name='signup'),
+    path('', index, name='home'),
+    path('film/<int:film_id>/', show_film, name='film'),
+    path('about/', about, name='about'),
+    path('halls/', halls, name='halls'),
+    path('emploeeys/', cashiers, name='cashiers'),
+    path('buyticket/', buy_ticket, name='buy_ticket'),
+    path('login/', login, name='login'),
+    path('genre/<int:genre_id>/', show_genre, name='genre')
 ]
