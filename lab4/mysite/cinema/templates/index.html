@@ -4,12 +4,15 @@
 <h1>{{title}}</h1>
 <ul>
     {% for f in films %}
+	{% if f.poster %}
+		<p><img class="img-article-left thumb" src="{{ f.poster.url }}">
+	{% endif %}
     <li><h2>{{f.name}}</h2>
         {% autoescape on %}
 	{{f.description|linebreaks|truncatewords:50}}
 	{% endautoescape %}
      <div class="clear"></div>
-			<p class="link-read-post"><a href="#">View info</a></p>
+			<p class="link-read-post"><a href="{{ f.get_absolute_url }}">View info</a></p>
 			</li>
 	{% endfor %}
 </ul>

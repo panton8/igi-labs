@@ -19,7 +19,7 @@
  {% if not forloop.last %}
 			<li><a href="{% url m.url_name %}">{{m.title}}</a></li>
 	{% else %}
-			<li class="last"><a href="#">{{m.title}}</a></li>
+			<li class="last"><a href="{% url m.url_name %}">{{m.title}}</a></li>
 	{% endif %}
 {% endfor %}
 			</ul>
@@ -32,32 +32,30 @@
 <!-- Sidebar слева -->
 	<td valign="top" class="left-chapters">
 	<ul id="leftchapters">
-		<li class="nav-item has-submenu">
-		<a class="nav-link" href="#">Genres</a>
-		<ul class="submenu collapse">
-			<li><a class="nav-link" href="#">Action</a></li>
-			<li><a class="nav-link" href="#">Adventure</a></li>
-			<li><a class="nav-link" href="#">Comedy"</a> </li>
-			<li><a class="nav-link" href="#">Crime</a></li>
-			<li><a class="nav-link" href="#">Drama</a></li>
-			<li><a class="nav-link" href="#">Historical"</a> </li>
-			<li><a class="nav-link" href="#">Horror</a></li>
-			<li><a class="nav-link" href="#">Musicals</a></li>
-			<li><a class="nav-link" href="#">Science</a> </li>
-			<li><a class="nav-link" href="#">War</a></li>
-			<li><a class="nav-link" href="#">Western</a></li>
-			<li><a class="nav-link" href="#">Documentary</a> </li>
-		</ul>
-	</li>
+
+{% if main_page != True %}
+
+{% elif genre_selected == 0  and main_page == True %}
+		<li class="selected">All Genres</li>
+{% else %}
+		<li><a href="{% url 'home' %}">All Genres</a></li>
+{% endif %}
+
+{% for g in genres %}
+		{% if g.pk ==  genre_selected %}
+			<li class="selected">{{g.genre}}</li>
+		{% else %}
+			<li><a href="{{ g.get_absolute_url }}">{{g.genre}}</a></li>
+		{% endif %}
+{% endfor %}
+
+
 	</ul>
 </td>
 <!-- Конец Sidebar'а -->
 <td valign="top" class="content">
-	<!-- Хлебные крошки -->
 	{% block breadcrumbs %}
 	{% endblock %}
-
-<!-- Блок контента -->
 	<div class="content-text">
 {% block content %}
 {% endblock %}

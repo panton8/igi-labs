@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{film.name}}</h1>
+<ul>
+	{% if film.poster %}
+		<p><img class="img-article-left thumb" src="{{ film.poster.url }}">
+	{% endif %}
+  <h3>Ratings: {{film.rating}}</h3>
+  <h3>A country: {{film.country}}</h3>
+  <h3>Genre: {{film.genre}}</h3>
+  <h3>Duration: {{film.duration}} min.</h3>
+  <h3>What is '{{film.name}}' about?:</h3>
+  <p>{{film.description}}</p>
+</ul>
+{% endblock %}

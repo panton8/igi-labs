@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{title}}</h1>
+<ul>
+    {% for c in cashiers %}
+				<li><h2>{{c.full_name}}</h2>
+	{% if c.photo %}
+		<p><img class="img-article" src="{{ c.photo.url }}">
+	{% endif %}
+			<hr>
+	{% endfor %}
+</ul>
+{% endblock %}

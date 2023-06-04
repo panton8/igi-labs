@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{title}}</h1>
+<ul>
+    {% for h in halls %}
+				<li><h2>{{h.capacity}} seats</h2>
+	{% if h.photo %}
+		<p><img class="img-article" src="{{ h.photo.url }}">
+	{% endif %}
+			<hr>
+	{% endfor %}
+</ul>
+{% endblock %}
