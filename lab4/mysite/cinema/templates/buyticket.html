@@ -6,6 +6,9 @@
     {% csrf_token %}
     {{form.as_ul}}
     <button type="submit">Buy</button>
+    {% if exception %}
+<p>{{exception}}</p>
+{% endif %}
 </form>
 
 {% endblock %}

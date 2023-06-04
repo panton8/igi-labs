@@ -4,7 +4,8 @@
 <h1>{{title}}</h1>
 <ul>
     {% for h in halls %}
-				<li><h2>{{h.capacity}} seats</h2>
+				<li><h2>{{h.name}}</h2>
+				<li><h3>{{h.capacity}} seats</h3>
 	{% if h.photo %}
 		<p><img class="img-article" src="{{ h.photo.url }}">
 	{% endif %}

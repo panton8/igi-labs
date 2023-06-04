@@ -1,4 +1,5 @@
 {% load static %}
+{% load cinema_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,15 +41,7 @@
 {% else %}
 		<li><a href="{% url 'home' %}">All Genres</a></li>
 {% endif %}
-
-{% for g in genres %}
-		{% if g.pk ==  genre_selected %}
-			<li class="selected">{{g.genre}}</li>
-		{% else %}
-			<li><a href="{{ g.get_absolute_url }}">{{g.genre}}</a></li>
-		{% endif %}
-{% endfor %}
-
+		{% show_genres 'genre' genre_selected %}
 
 	</ul>
 </td>
