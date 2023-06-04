@@ -15,12 +15,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-
-from cinema.views import home_screen_view, page_not_found
 from django.urls import path, include
 from django.conf.urls.static import static
-
+from cinema.views import pageNotFound
 from mysite import settings
 
 urlpatterns = [
@@ -28,7 +25,7 @@ urlpatterns = [
     path('', include('cinema.urls')),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, documet_root=settings.MEDIA_ROOT)
+handler404 = pageNotFound
 
-handler404 = page_not_found
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
