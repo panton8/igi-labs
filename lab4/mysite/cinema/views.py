@@ -1,11 +1,8 @@
 from datetime import date, datetime
-from django.utils import timezone
-from django.contrib.auth import logout, login
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.sites import requests
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect, Http404
+from django.http import HttpResponse, HttpResponseNotFound, Http404
 from .models import *
+from django.views.generic import ListView, DetailView, CreateView
 from .forms import *
 
 menu = [
@@ -17,19 +14,31 @@ menu = [
 ]
 
 
-def index(request):
-    films = Film.objects.all()
-    genres = Genre.objects.all()
-    context = {
-        'films': films,
-        'genres': genres,
-        'menu': menu,
-        'title': 'Main Page',
-        'genre_selected': 0,
-        'main_page': True
-    }
+class FilmHome(ListView):
+    model = Film
+    template_name = 'index.html'
+    context_object_name = 'films'
 
-    return render(request, 'index.html', context=context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['title'] = 'Main Page'
+        context['genre_selected'] = 0
+        context['main_page'] = True
+        return context
+
+
+# def index(request):
+#     films = Film.objects.all()
+#     context = {
+#         'films': films,
+#         'menu': menu,
+#         'title': 'Main Page',
+#         'genre_selected': 0,
+#         'main_page': True
+#     }
+#
+#     return render(request, 'index.html', context=context)
 
 
 def genres(request):
@@ -99,37 +108,58 @@ def login(request):
     return HttpResponse("Sign In")
 
 
-def show_film(request, film_id):
-    film = get_object_or_404(Film, pk=film_id)
+class ShowFilm(DetailView):
+    model = Film
+    template_name = 'film.html'
+    pk_url_kwarg = 'film_id'
+    context_object_name = 'film'
 
-    context = {
-        'film': film,
-        'menu': menu,
-        'title': film.name,
-        'genre_selected': film.genre_id
-    }
-
-    return render(request, 'film.html', context=context)
+# def show_film(request, film_id):
+#     film = get_object_or_404(Film, pk=film_id)
+#
+#     context = {
+#         'film': film,
+#         'menu': menu,
+#         'title': film.name,
+#         'genre_selected': film.genre_id
+#     }
+#
+#     return render(request, 'film.html', context=context)
 
 
 def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Page not found</h1>')
 
 
-def show_genre(request, genre_id):
-    films = Film.objects.filter(genre_id=genre_id)
-    genres = Genre.objects.all()
+class FilmGenre(ListView):
+    model = Film
+    template_name = 'index.html'
+    context_object_name = 'films'
+    allow_empty = False
 
-    if len(films) == 0:
-        raise Http404()
+    def get_queryset(self):
+        return Film.objects.filter(genre__id=self.kwargs['genre_id'])
 
-    context = {
-        'films': films,
-        'genres': genres,
-        'menu': menu,
-        'title': 'Film by genre',
-        'genre_selected': genre_id,
-        'main_page': True
-    }
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Genre - " + str(context['films'][0].genre)
+        context['menu'] = menu
+        context['genre_selected'] = context['films'][0].genre_id
+        context['main_page'] = True
+        return context
 
-    return render(request, 'index.html', context=context)
+# def show_genre(request, genre_id):
+#     films = Film.objects.filter(genre_id=genre_id)
+#
+#     if len(films) == 0:
+#         raise Http404()
+#
+#     context = {
+#         'films': films,
+#         'menu': menu,
+#         'title': 'Film by genre',
+#         'genre_selected': genre_id,
+#         'main_page': True
+#     }
+#
+#     return render(request, 'index.html', context=context)
