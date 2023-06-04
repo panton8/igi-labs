@@ -15,5 +15,5 @@ class TicketPostForm(forms.Form):
         widgets = {
             "Film": forms.Form
         }
-    session = forms.ModelChoiceField(queryset=Session.objects.all())
+    session = forms.ModelChoiceField(queryset=Session.objects.all(), empty_label="Session not selected")
     seats = forms.IntegerField(min_value=1, max_value=5)
