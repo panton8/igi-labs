@@ -1,2 +1,4 @@
 /venv
 .idea/
+/cinema/__pycache__/
+/mysite/__pycache__/
