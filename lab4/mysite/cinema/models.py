@@ -1,6 +1,9 @@
+from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+
+from cinema.manager import CustomUserManager
 
 
 class Genre(models.Model):
@@ -143,3 +146,22 @@ class Purchase(models.Model):
     session = models.ForeignKey(Session, on_delete=models.PROTECT)
     bought_at = models.DateTimeField(auto_now_add=True, help_text='Date and time when ticket was bought')
     updated_at = models.DateTimeField(help_text='Date and time when ticket was updated')
+
+
+class CustomUser(AbstractUser):
+    first_name = models.CharField(max_length=200,
+                                  help_text='Enter first name')
+    last_name = models.CharField(max_length=200,
+                                 help_text='Enter last name')
+    date_of_birth = models.DateField()
+    email = models.EmailField()
+    phone_number = models.CharField(max_length=50)
+
+    objects = CustomUserManager()
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['first_name',
+                       'last_name',
+                       'email',
+                       'date_of_birth',
+                       'phone_number']
