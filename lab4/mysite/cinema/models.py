@@ -111,8 +111,7 @@ class Hall(models.Model):
     cashiers = models.ManyToManyField(Cashier, through="Session")
 
     def __str__(self):
-        return f"{self.name[-3:]}\n" \
-               f"Capacity: {self.capacity}"
+        return f"{self.name[-3:]}"
 
 
 class Session(models.Model):
@@ -124,10 +123,11 @@ class Session(models.Model):
     date = models.DateTimeField()
 
     def __str__(self):
-        return f"Film: {self.film}\n" \
-               f"Hall: {self.hall}\n" \
-               f"Ticket Cost: {self.ticket_cost}\n" \
-               f"Date: {self.date}"
+        return f"Film: {self.film}," \
+               f" Hall: {self.hall}," \
+               f" Ticket Cost: {self.ticket_cost}," \
+               f" Date: {self.date},"\
+               f" Seats available: {self.available_seats}"
 
 
 class Client(models.Model):
@@ -146,6 +146,7 @@ class Purchase(models.Model):
     session = models.ForeignKey(Session, on_delete=models.PROTECT)
     bought_at = models.DateTimeField(auto_now_add=True, help_text='Date and time when ticket was bought')
     updated_at = models.DateTimeField(help_text='Date and time when ticket was updated')
+    amount_of_tickets = models.IntegerField(default=1)
 
 
 class CustomUser(AbstractUser):
