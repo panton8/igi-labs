@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{title}}</h1>
+<ul>
+    {% for t in tickets %}
+    <li><h3>{{t}} tickets</h3>
+	<hr>
+	{% endfor %}</li>
+    <p class="link-read-post"><a href=" deletetickets.html ">Return tickets</a></p>
+    <p class="link-read-post"><a href=" changetickets.html">Change tickets amount</a></p>
+</ul>
+{% endblock %}
+

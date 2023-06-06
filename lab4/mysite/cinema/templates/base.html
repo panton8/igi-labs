@@ -17,12 +17,13 @@
 			<ul id="mainmenu" class="mainmenu">
 			<li class="logo"><a href="{% url 'home' %}"><div class="logo"></div></a></li>
   {% for m in menu %}
- {% if not forloop.last %}
 			<li><a href="{% url m.url_name %}">{{m.title}}</a></li>
-	{% else %}
-			<li class="last"><a href="{% url m.url_name %}">{{m.title}}</a></li>
-	{% endif %}
 {% endfor %}
+				{% if request.user.is_authenticated %}
+				<li class="last">{{ user.username }} | <a href="{% url 'logout' %}">Log Out</a></li>
+				{% else %}
+				<li class="last"><a href="{% url 'register' %}">Sign Up</a> | <a href="{% url 'login' %}">Sign In</a></li>
+				{% endif %}
 			</ul>
 			<div class="clear"></div>
 		</div>
@@ -41,7 +42,16 @@
 {% else %}
 		<li><a href="{% url 'home' %}">All Genres</a></li>
 {% endif %}
-		{% show_genres 'genre' genre_selected %}
+
+{% for g in genres %}
+	{% if g.pk == genre_selected %}
+		<li class="selected">{{g.genre}}</li>
+	{% else %}
+		<li><a href="{{ g.get_absolute_url }}">{{g.genre}}</a></li>
+	{% endif %}
+{% endfor %}
+
+
 
 	</ul>
 </td>

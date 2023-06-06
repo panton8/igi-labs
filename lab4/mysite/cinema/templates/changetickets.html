@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{title}}</h1>
+<form action ="{% url 'change_tickets' %}" method="post">
+    {% csrf_token %}
+    {{form.as_ul}}
+    <button type="submit">Confirm</button>
+</form>
+    {% if exception %}
+<p>You need to buy tickets</p>
+{% endif %}
+{% endblock %}

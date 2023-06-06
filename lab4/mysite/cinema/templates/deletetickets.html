@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{title}}</h1>
+<form action ="{% url 'delete_tickets' %}" method="post">
+    {% csrf_token %}
+    {{form.as_ul}}
+    <button type="submit">Confirm</button>
+</form>
+    {% if exception %}
+<p>Such session doesn't exist </p>
+{% endif %}
+{% endblock %}

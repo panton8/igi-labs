@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="bottom-right">
+        <p>Interesting fact about cats: {{ cat_fact }}</p>
+    </div>
+
 <h1>{{title}}</h1>
 <ul>
     {% for h in halls %}
