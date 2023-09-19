@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<small>{{news.publish}}</small>
+<ul>
+  <h2>{{news.title}}</h2>
+  {% if news.photo %}
+		<p><img class="img-article-left thumb"  src="{{ news.photo.url }}">
+	{% endif %}
+  <article>{{news.text}}</article>
+</ul>
+{% endblock %}

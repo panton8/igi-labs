@@ -1,11 +1,18 @@
 from .models import *
 
 menu = [
-    {'title': "About", 'url_name': 'about'},
+    {'title': "Main", 'url_name': 'main'},
     {'title': "Buy tickets", 'url_name': 'buy_ticket'},
-    {'title': "Halls", 'url_name': 'halls'},
+    {'title': "About", 'url_name': 'about'},
     {'title': "Employees", 'url_name': 'cashiers'},
-    {'title': "Tickets", 'url_name': 'tickets'}
+    #{'title': "Halls", 'url_name': 'halls'},
+    {'title': "Tickets", 'url_name': 'tickets'},
+    #{'title': "Privacy Policy", 'url_name': 'privacy_policy'},
+    {'title': 'Reviews', 'url_name': 'reviews'},
+    #{'title': "Careers", 'url_name': 'vacancies'},
+    {'title': "Questions", 'url_name': 'questions'},
+    {'title': "News", 'url_name': 'list_news'},
+    {'title': "Stats", 'url_name': 'stat'}
 ]
 
 
@@ -17,6 +24,7 @@ class DataMixin:
         user_menu = menu.copy()
         if not self.request.user.is_authenticated:
             user_menu.pop(1)
+            user_menu.pop(2)
             user_menu.pop(2)
         context['menu'] = user_menu
         context['genres'] = genres

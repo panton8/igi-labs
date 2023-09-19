@@ -1,17 +1,20 @@
-from datetime import date, datetime
-
 from django.contrib.auth import logout, login
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.contrib.sites import requests
+from django.core.exceptions import PermissionDenied
 from django.utils import timezone
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseNotFound
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 from .forms import *
 from .utils import *
 import requests
+from django.shortcuts import render
+import matplotlib.pyplot as plt
+from django.db.models import Count
+from django.db.models.functions import TruncMonth
+from django.contrib.auth.decorators import login_required
 
 
 class FilmHome(DataMixin, ListView):
@@ -28,12 +31,33 @@ class FilmHome(DataMixin, ListView):
 def about(request):
     dog_photo = requests.get("https://dog.ceo/api/breeds/image/random").json()
     if not request.user.is_authenticated:
-        return render(request, 'about.html', {'title': 'About', 'menu': menu[0:4:2]})
+        return render(request, 'about.html', {'title': 'About', 'menu': menu[0::2]})
     return render(request, 'about.html', {'title': 'About', 'menu': menu, 'dog_photo': dog_photo['message']})
+
+
+def privacy_policy(request):
+    cat_fact = requests.get('https://catfact.ninja/fact').json()
+    if not request.user.is_authenticated:
+        return render(request, 'privacy_policy.html', {'title': 'Privacy Policy', 'menu': menu[0::2]})
+    return render(request, 'privacy_policy.html', {'title': 'Privacy Policy', 'menu': menu, 'cat_fact': cat_fact['fact']})
+
+
+def list_news(request):
+    news = News.objects.all()
+    if not request.user.is_authenticated:
+        return render(request, 'list_news.html', {'news': news, 'title': 'News', 'menu': menu[0::2]})
+    return render(request, 'list_news.html', {'news': news, 'title': 'News', 'menu': menu})
+
+
+def main(request):
+    if not request.user.is_authenticated:
+        return render(request, 'main.html', {'title': 'Main Page', 'menu': menu[0::2]})
+    return render(request, 'main.html', {'title': 'Main Page', 'menu': menu})
 
 
 @login_required
 def buy_ticket(request):
+    time = requests.get("http://worldtimeapi.org/api/timezone/Europe/Minsk").json()
     session = ...
     available_seats = ...
     exception = ""
@@ -41,6 +65,8 @@ def buy_ticket(request):
         session = Session.objects.get(id=request.POST.get('session'))
         form = TicketPostForm(request.POST)
         tickets = int(request.POST.get('seats'))
+        if SaleCode.objects.filter(code=request.POST.get('code')) and session.available_seats >= tickets:
+            tickets += 1
         if session.available_seats >= tickets and form.is_valid():
             try:
                 user = CustomUser.objects.get(email=request.user.email)
@@ -69,13 +95,70 @@ def buy_ticket(request):
         'menu': menu,
         'title': 'Tickets',
         'exception': exception,
+        'timezone': time['timezone'],
+        'time': time['datetime'][11:16]
     }
     return render(request, 'buyticket.html', context=context)
 
 
+def questions(request):
+    return render(request, 'questions.html', {'title': 'Questions', 'menu': menu})
+
+
+def all_reviews(request):
+    context = {
+        'menu': menu,
+        'title': 'Reviews',
+        "reviews": Review.objects.all()
+    }
+    return render(request, 'all_reviews.html', context=context)
+
+
+def reviews(request):
+    if request.method == 'POST':
+        cf = ReviewForm(request.POST or None)
+        if request.user.is_authenticated:
+            if cf.is_valid():
+                content = request.POST.get('content')
+                rating = request.POST.get('rating')
+                reviewer = CustomUser.objects.filter(email=request.user.email)[0]
+                print(reviewer)
+                review = Review(author=reviewer, content=content, rating=rating)
+                review.save()
+                context = {
+                    'form': cf,
+                    'menu': menu,
+                    'title': 'Reviews',
+                    'exception': "",
+                    "reviews": Review.objects.all()
+                }
+                return render(request, 'all_reviews.html', context=context)
+            else:
+                cf = ReviewForm()
+                print("wrong")
+        else:
+            return redirect('login')
+    context = {
+            'form': ReviewForm(),
+            'menu': menu,
+            'title': 'Reviews',
+            'exception': "",
+    }
+    return render(request, 'reviews.html', context=context)
+
+
+
+
+def vacancies(request):
+    vacancies = Vacancy.objects.all()
+    if not request.user.is_authenticated:
+        return render(request, 'vacancies.html', {'vacancies': vacancies, 'title': 'Careers', 'menu': menu[0::2]})
+    return render(request, 'vacancies.html', {'vacancies': vacancies, 'title': 'Careers', 'menu': menu})
+
+
 def halls(request):
     halls = Hall.objects.all()
-    hall_menu = menu[0:4:2]if not request.user.is_authenticated else menu
+    hall_menu = menu[0::2] if not request.user.is_authenticated else menu
     cat_fact = requests.get('https://catfact.ninja/fact').json()
     context = {
         'halls': halls,
@@ -92,7 +175,7 @@ def cashiers(request):
     context = {
         'cashiers': cashiers,
         'menu': menu,
-        'title': 'Cashiers'
+        'title': 'Employees'
     }
 
     return render(request, 'cashiers.html', context=context)
@@ -112,6 +195,16 @@ class ShowFilm(DataMixin, DetailView):
         context = super().get_context_data(**kwargs)
         g_def = self.get_user_context(title=context['film'], genre_selected=context['film'].genre_id, main_page=True)
         return dict(list(context.items()) + list(g_def.items()))
+
+
+def news(request, news_id):
+    news = get_object_or_404(News, pk=news_id)
+    context = {
+        'news': news,
+        'menu': menu,
+        'title': news.title
+    }
+    return render(request, 'news.html', context=context)
 
 
 def pageNotFound(request, exception):
@@ -264,3 +357,34 @@ def change_tickets(request):
         'exception': exception
     }
     return render(request, 'changetickets.html', context=context)
+
+
+def stat(request):
+    if not request.user.is_superuser:
+        raise PermissionDenied("You do not have access to this page.")
+
+    all_groups = (((Purchase.objects
+                  .annotate(month=TruncMonth('bought_at')))
+                  .values('month'))
+                  .annotate(c=Count('id')))
+    print(all_groups)
+    mon = {1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr',
+           5: 'May', 6: 'Jun', 7: 'Jul', 8: 'Aug',
+           9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec'}
+    x = []
+    y = []
+    for group in all_groups:
+        x.append(mon[group['month'].month])
+        y.append(group['c'])
+    context = {
+        'menu': menu,
+        'title': 'Stats'
+    }
+    plt.bar(x, y, color="aquamarine", width=0.1)
+    print(x)
+    print(Purchase.objects.all())
+    plt.xlabel('Month')
+    plt.ylabel('Amount of purchases')
+    plt.title('Stats')
+    plt.savefig('cinema/static/app_statistics/stats.png', format='png')
+    return render(request, 'stats.html', context=context)

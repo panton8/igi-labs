@@ -1,72 +1,173 @@
+<!DOCTYPE html>
 {% load static %}
 {% load cinema_tags %}
-<!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-   <title>{{title}}</title>
-	<link type="text/css" href="{% static 'css/styles.css' %}" rel="stylesheet" />
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<link rel="shortcut icon" href="{% static 'images/main.ico' %}" type="image/x-icon"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link type="text/css" href="{% static 'css/styles.css' %}" rel="stylesheet"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="shortcut icon" href="{% static 'images/main.ico' %}" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Test your website with the free SEO check from Seobility and get tips for a better search engine optimization.">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </head>
 <body>
-<table class="table-page" border=0 cellpadding="0" cellspacing="0">
-<tr><td valign=top>
-{% block mainmenu %}
-<div class="header">
-			<ul id="mainmenu" class="mainmenu">
-			<li class="logo"><a href="{% url 'home' %}"><div class="logo"></div></a></li>
-  {% for m in menu %}
-			<li><a href="{% url m.url_name %}">{{m.title}}</a></li>
-{% endfor %}
-				{% if request.user.is_authenticated %}
-				<li class="last">{{ user.username }} | <a href="{% url 'logout' %}">Log Out</a></li>
-				{% else %}
-				<li class="last"><a href="{% url 'register' %}">Sign Up</a> | <a href="{% url 'login' %}">Sign In</a></li>
-				{% endif %}
-			</ul>
-			<div class="clear"></div>
-		</div>
-{% endblock mainmenu %}
+<header>
+    <nav>
+    <table class="table-page" border=0 cellpadding="0" cellspacing="0">
+        <tr>
+            <td valign=top>
+                {% block mainmenu %}
+                <div class="header">
+                    <ul id="mainmenqu" class="mainmenu">
+                        <li class="logo"><a href="{% url 'home' %}">
+                            <div class="logo"></div>
+                        </a></li>
+                        {% for m in menu %}
+                        <li><a href="{% url m.url_name %}">{{m.title}}</a></li>
+                        {% endfor %}
+                        {% if request.user.is_authenticated %}
+                        <li class="last">{{ user.username }} | <a href="{% url 'logout' %}">Log Out</a></li>
+                        {% else %}
+                        <li class="last"><a href="{% url 'register' %}">Sign Up</a> | <a href="{% url 'login' %}">Sign
+                            In</a></li>
+                        {% endif %}
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                {% endblock mainmenu %}
+            </td>
+        </tr>
+        <tr>
+            <td valign=top>
+            </td>
+        </tr></table>
+    </nav>
+</header>
+<style>
 
-<table class="table-content" border=0 cellpadding="0" cellspacing="0">
-<tr>
-<!-- Sidebar слева -->
-	<td valign="top" class="left-chapters">
-	<ul id="leftchapters">
+    body {
+        margin: 0;
+        min-height: 100%;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+    }
+</style>
+<main>
+    <table class="table-content" border=0 cellpadding="0" cellspacing="0">
+        <tr>
+            <!-- Sidebar слева -->
+            <td valign="top" class="left-chapters">
+                <ul id="leftchapters">
+                    {% if main_page != True %}
 
-{% if main_page != True %}
+                    {% elif genre_selected == 0 and main_page == True %}
+                    <li class="selected">All Genres</li>
+                    {% else %}
+                    <li><a href="{% url 'home' %}">All Genres</a></li>
+                    {% endif %}
 
-{% elif genre_selected == 0  and main_page == True %}
-		<li class="selected">All Genres</li>
-{% else %}
-		<li><a href="{% url 'home' %}">All Genres</a></li>
-{% endif %}
+                    {% for g in genres %}
+                    {% if g.pk == genre_selected %}
+                    <li class="selected">{{g.genre}}</li>
+                    {% else %}
+                    <li><a href="{{ g.get_absolute_url }}">{{g.genre}}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </td>
+            <!-- Конец Sidebar'а -->
+            <td valign="top" class="content">
+                {% block breadcrumbs %}
+                {% endblock %}
+                <div class="content-text">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </td>
+        </tr>
+    </table>
+</main>
+<style>
+    ody {
+        margin: 0;
+        overflow-x: hidden;
+    }
 
-{% for g in genres %}
-	{% if g.pk == genre_selected %}
-		<li class="selected">{{g.genre}}</li>
-	{% else %}
-		<li><a href="{{ g.get_absolute_url }}">{{g.genre}}</a></li>
-	{% endif %}
-{% endfor %}
+    .footer {
+        background: #000;
+        padding: 30px 0px;
+        font-family: 'Play', sans-serif;
+        text-align: center;
+    }
 
+    .footer .row {
+        width: 100%;
+        margin: 1% 0%;
+        padding: 0.6% 0%;
+        color: #808080;
+        font-size: 0.8em;
+    }
 
+    .footer .row a {
+        text-decoration: none;
+        color: #808080;
+        transition: 0.5s;
+    }
 
-	</ul>
-</td>
-<!-- Конец Sidebar'а -->
-<td valign="top" class="content">
-	{% block breadcrumbs %}
-	{% endblock %}
-	<div class="content-text">
-{% block content %}
-{% endblock %}
-	</div>
+    .footer .row a:hover {
+        color: #fff;
+    }
 
-</td></tr></table>
-</td></tr>
-	<tr><td valign=top>
-</td></tr></table>
+    .footer .row ul {
+        width: 100%;
+    }
+
+    .footer .row ul li {
+        display: inline-block;
+        margin: 0px 30px;
+    }
+
+    .footer .row a i {
+        font-size: 2em;
+        margin: 0% 1%;
+    }
+
+    @media (max-width: 720px) {
+        .footer {
+            text-align: left;
+            padding: 5%;
+        }
+
+        .footer .row ul li {
+            display: block;
+            margin: 10px 0px;
+            text-align: left;
+        }
+
+        .footer .row a i {
+            margin: 0% 3%;
+        }
+    }
+</style>
+<footer>
+    <div class="footer">
+        <div class="row">
+            <ul>
+                <li><a href="{% url 'about' %}">Contact us</a></li>
+                <li><a href="{% url 'buy_ticket' %}">Our Services</a></li>
+                <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
+                <li><a href="{% url 'questions' %}">Terms & Conditions</a></li>
+                <li><a href="{% url 'vacancies' %}">Career</a></li>
+            </ul>
+        </div>
+
+        <div class="row">
+            INFERNO Copyright © 2021 Inferno - All rights reserved || Designed By: Mahesh
+        </div>
+    </div>
+</footer>
 </body>
 </html>

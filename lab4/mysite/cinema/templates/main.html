@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{title}}</h1>
+  <h3><font size="7" color="red" face="Arial">In theaters from September 20</font></h3>
+{% load static %}
+<p><img class="img-article-left thumb" src="{% static 'images/afisha.jpg' %}" width="300" height="300" class="center"></p>
+  <h3>2023, UK, USA</h3>
+  <h3>Director: Christopher Nolan</h3>
+  <h3>Cast: Cillian Murphy, Florence Pugh, Matt Damon, Emily Blunt</h3>
+  <h3>Duration: 180 min.</h3>
+<br>
+<br>
+
+
+<div class="parent">
+    <div class="block">
+        <p><a href="https://skyline.by/rechitsa/" target="_blank">
+<img src="{% static 'images/giphy.gif' %}"
+width="468" height="60" alt="images/giphy.gif" title="Ждём вас у нас!" border="0" />
+</a></p>
+    </div>
+    <audio controls>
+<source src = "{% static 'audio/ANNA ASTI - Царица.mp3' %}"/>
+    </audio>
+</div>
+    <div class="slider">
+	<div class="slide-track">
+       <h2>Our  Partners</h2>
+		<div class="slide">
+          <a href="https://www.sketch.com/" target="_blank">
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/1.png" height="100" width="250" alt="" />
+          </a>
+		</div>
+		<div class="slide">
+          <a href="https://www.invisionapp.com/" target="_blank">
+			<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/2.png" height="100" width="250" alt="" />
+          </a>
+		</div>
+		<div class="slide">
+          <a href="https://craft.co/" target="_blank">
+			<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/3.png" height="100" width="250" alt="" />
+          </a>
+		</div>
+		<div class="slide">
+          <a href="https://dribbble.com/" target="_blank">
+			<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/4.png" height="100" width="250" alt="" />
+          </a>
+		</div>
+		<div class="slide">
+          <a href="https://www.behance.net/" target="_blank">
+			<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/5.png" height="100" width="250" alt="" />
+          </a>
+		</div>
+		<div class="slide">
+          <a href="https://about.google/" target="_blank">
+			<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/6.png" height="100" width="250" alt="" />
+          </a>
+		</div>
+		<div class="slide">
+          <a href="https://www.facebook.com/" target="_blank">
+			<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/7.png" height="100" width="250" alt="" />
+          </a>
+		</div>
+	</div>
+</div>
+{% endblock %}

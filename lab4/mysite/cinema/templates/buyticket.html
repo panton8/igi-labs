@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% block content %}
 <h1>{{title}}</h1>
 <form action ="{% url 'buy_ticket' %}" method="post">
@@ -10,5 +9,18 @@
 <p>{{exception}}</p>
 {% endif %}
 </form>
-
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<h3>TimeZone: {{timezone}}</h3>
+<h3>LastPageUpdate: {{time}}</h3>
+<div><dt>HTML-документ</dt>
+     <dd>Обычный текстовый файл, который может содержать в себе текст,
+         теги и стили. Изображения и другие объекты хранятся отдельно.
+         Содержимое такого файла обычно называется HTML-код.</dd>
+</div>
+<p>
+  You can use <abbr>CSS</abbr> (Cascading Style Sheets) to style your <abbr>HTML</abbr> (HyperText Markup Language).
+  Using style sheets, you can keep your <abbr>CSS</abbr> presentation layer and <abbr>HTML</abbr> content layer
+  separate. This is called "separation of concerns."
+</p>
 {% endblock %}
+

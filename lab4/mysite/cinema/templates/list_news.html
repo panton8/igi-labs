@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{title}}</h1>
+<ul class="list-articles">
+    {% for n in news %}
+    <li>
+    <p><small>{{n.publish}}</small><p>
+    <p><b><font size="6" color="black" face="Arial"> {{n.title}} </font> </b></p>
+        {% if n.photo %}
+		<p><img class="img-article-left thumb"  src="{{ n.photo.url }}">
+	{% endif %}
+        <p>{{n.text|truncatewords:50}}</p>
+        <div class="clear"></div>
+        <p class="link-read-post"><a href="{{ n.get_absolute_url }}">Read news</a></p>
+    <hr>
+    </li>
+	{% endfor %}
+</ul>
+{% endblock %}

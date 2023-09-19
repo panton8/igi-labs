@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h1>{{title}}</h1>
+<div class="plot">
+	<figure>
+			 <img src="{% static 'app_statistics/stats.png' %}" alt="main statistics">
+	</figure>
+</div>
+{% endblock %}

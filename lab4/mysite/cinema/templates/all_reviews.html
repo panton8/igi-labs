@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{title}}</h1>
+<ul class="list-articles">
+    {% for r in reviews %}
+    <li>
+    <p><small>{{r.pub_date}}</small><p>
+    <p>Author: {{r.author}}</p>
+    <p>Review: {{r.content}}</p>
+    <p>Rating: {{r.rating}}</p>
+    <hr>
+    </li>
+	{% endfor %}
+</ul>
+{% endblock %}

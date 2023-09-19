@@ -1,0 +1,143 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<p>Цель ВОЗ состоит в том, чтобы:
+<q>Построить будущее, в котором люди будут жить в гармонии с природой.</q>
+Мы надеемся, что они преуспеют.</p>
+
+<p>This is a veryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryvery<wbr>longwordthatwillbreakatspecific<wbr>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaplaceswhenthebrowserwindowisresized.</p>
+
+  <p>Ночевала тучка золотая<br>
+   На груди утеса-великана;<br>
+   Утром в путь она умчалась рано,<br>
+   По лазури весело играя…</p>
+
+<style>
+  @layer setupPage, step2styles, markers;
+
+details {
+  border-radius: 0.5rem;
+  margin: 1rem ;
+  transition: 50ms;
+}
+details[open] {
+    padding-bottom: 1em;
+}
+
+summary::before,
+summary::after {
+    transition: 200ms;
+  }
+
+
+
+@layer markers {
+  summary {
+  position: relative;
+}
+summary::marker {
+  content: none;
+}
+summary::before,
+summary::after {
+  content: '';
+}
+summary::before,
+summary::after {
+    width: .75em;
+    height: 0;
+    border-bottom: 2px solid;
+    position: absolute;
+    top: calc(50% - 1px);
+    right: 0;
+    transform: translateY(-50%);
+  }
+summary::after {
+  transform: rotate(90deg);
+  transform-origin: 50% 50%;
+}
+[open] summary::after {
+  transform: rotate(0deg);
+}
+}
+
+/* styles ported over from the second example */
+@layer step2styles {
+  details {
+    border: 1px solid;
+    padding: 0 1rem;
+    background: white;
+  }
+  details + details {
+    border-top: none;
+  }
+  details[open] {
+      padding-bottom: 1em;
+  }
+  summary {
+    padding: 1rem 2em 1rem 0;
+    font-size: 1.25rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
+
+/* cascade layer: page setup. Doesn't impact the accordion */
+@layer setupPage {
+
+:root {
+  font-size: 112.5%;
+  line-height: 1.5;
+}
+body {
+  background: #a4bacc99;
+  color: #226daa;
+  font-family: Raleway, sans-serif;
+  margin: 1rem;
+}
+* {
+  box-sizing: border-box;
+}
+
+aside {
+  width: 38em;
+  max-width: 98vw;
+}
+}
+
+</style>
+<aside>
+<h2>FAQ</h2>
+  <details open>
+  <summary>After a movie starts in the cinema, how long do tickets go on sale for a show?</summary>
+  <p>Within 15 minutes.</p>
+</details>
+<details open>
+  <summary>Does the cinema employee have the right to refuse to purchase a ticket or not let him into the hall if enough people did not come to the screening of the film (it was only me)?</summary>
+  <p>No, he has no right.
+
+In accordance with paragraph 22 of the Rules for cinema and video services to the population, approved by Decree of the Government of the Republic of Belarus dated November 17, 1994 N 1264 (as amended on March 10, 2009), a film video announced in the program must be shown regardless of the number of spectators present at the show.</p>
+</details>
+<details open>
+  <summary>Does a cinema employee have the right not to allow a 14-year-old child to see a film with an age limit of 16+?</summary>
+  <p>The age limit law has been in effect since September 1, 2012, in accordance with international standards that protect children's rights to safety from information that causes them mental, physical and moral harm.
+
+Cinema employees do not have the right to sell tickets or admit children who do not meet the age marking to attend screenings.
+
+If children are accompanied by legal representatives, then a cinema employee may allow the child to see the film, but only together with the legal representative.</p>
+</details>
+<details open>
+  <summary>Can minors attend a movie show that is not appropriate for their age without parents or legal representatives in the cinema?</summary>
+  <p>Underage children cannot attend a film show that is not appropriate for their age without parents or legal representatives in the cinema.</p>
+</details>
+
+  <details open>
+  <summary>Why and when does the cinema schedule change?</summary>
+  <p>The bulk of films are released on the single launch day for films in Russia - Thursday, which is how the working week for cinemas starts - seven days, from Thursday to Wednesday. It is from Thursday that a new schedule will be formed.
+It is worth noting that not all countries have the same opening day for films. In Russia, Germany, Australia, Mexico, Brazil, Italy it is Thursday, in the USA, Great Britain, South Korea, Spain it is Friday, in France it is Wednesday, and in Japan it is Saturday.
+A single launch day within one country significantly simplifies the life of all participants in film viewing: cinemas, which are easier to schedule, and viewers, who know when to expect a new release.</p>
+</details>
+
+<span style="font-family:Arial;vertical-align:baseline;"></span>
+</aside>
+{% endblock %}

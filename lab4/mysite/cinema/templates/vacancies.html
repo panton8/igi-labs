@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{title}}</h1>
+<ul>
+    {% for v in vacancies %}
+    <p><b>Job title:</b><font size="3" color="black" face="Arial"> {{v.position}} </font>  </p>
+    <p><b>Requirements:</b> <font size="3"  color="black" face="Arial"> {{v.requirements}}</font> </p>
+    <p><b>Possible salary:</b> <font size="3" color="black" face="Arial"> {{v.salary}} $</font> </p>
+        <hr>
+	{% endfor %}
+</ul>
+{% endblock %}

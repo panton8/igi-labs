@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
 from django.db import models
@@ -79,12 +81,62 @@ class Country(models.Model):
         return self.country
 
 
+class Vacancy(models.Model):
+    position = models.CharField(max_length=50, default="cashier")
+    requirements = models.CharField(max_length=500, default="higher education")
+    salary = models.FloatField(default=500)
+
+
+class SaleCode(models.Model):
+    code = models.CharField(max_length=8, default="SALE5%")
+
+
+class News(models.Model):
+    publish = models.DateField(default=datetime.date.today())
+    photo = models.ImageField(upload_to="photos/news", default="photos/news/news1.jpeg")
+    title = models.CharField(default="New film", max_length=100)
+    text = models.TextField(max_length=5000)
+
+    def get_absolute_url(self):
+        return reverse('news', kwargs={'news_id': self.pk})
+
+
 class Cashier(models.Model):
     full_name = models.CharField(max_length=100)
     photo = models.ImageField(upload_to="photos/cashiers")
+    position = models.CharField(max_length=50, default="cashier")
+    role = models.CharField(default="sell tickets", max_length=500)
+    phone_number = models.CharField(max_length=13, default="+375445574128")
+    email = models.EmailField(default="qwerty@gmail.com")
 
     def __str__(self):
         return self.full_name
+
+
+class CustomUser(AbstractUser):
+    first_name = models.CharField(max_length=200,
+                                  help_text='Enter first name')
+    last_name = models.CharField(max_length=200,
+                                 help_text='Enter last name')
+    date_of_birth = models.DateField()
+    email = models.EmailField()
+    phone_number = models.CharField(max_length=50)
+
+    objects = CustomUserManager()
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['first_name',
+                       'last_name',
+                       'email',
+                       'date_of_birth',
+                       'phone_number']
+
+
+class Review(models.Model):
+    author = models.ForeignKey(CustomUser, on_delete=models.PROTECT)
+    content = models.TextField()
+    rating = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(10)])
+    pub_date = models.DateTimeField(default=datetime.datetime.utcnow())
 
 
 class Film(models.Model):
@@ -144,25 +196,8 @@ class Client(models.Model):
 class Purchase(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     session = models.ForeignKey(Session, on_delete=models.PROTECT)
-    bought_at = models.DateTimeField(auto_now_add=True, help_text='Date and time when ticket was bought')
+    bought_at = models.DateTimeField(default=datetime.datetime.today(), help_text='Date and time when ticket was bought')
     updated_at = models.DateTimeField(help_text='Date and time when ticket was updated')
     amount_of_tickets = models.IntegerField(default=1)
 
 
-class CustomUser(AbstractUser):
-    first_name = models.CharField(max_length=200,
-                                  help_text='Enter first name')
-    last_name = models.CharField(max_length=200,
-                                 help_text='Enter last name')
-    date_of_birth = models.DateField()
-    email = models.EmailField()
-    phone_number = models.CharField(max_length=50)
-
-    objects = CustomUserManager()
-
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['first_name',
-                       'last_name',
-                       'email',
-                       'date_of_birth',
-                       'phone_number']

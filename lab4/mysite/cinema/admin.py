@@ -41,6 +41,27 @@ class ClientAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'date_of_birth', 'email', 'phone_number')
 
 
+
 @admin.register(Purchase)
 class PurchaseAdmin(admin.ModelAdmin):
     list_display = ('client', 'session', 'bought_at', 'updated_at')
+
+
+@admin.register(Vacancy)
+class VacancyAdmin(admin.ModelAdmin):
+    list_display = ('position', 'requirements', 'salary')
+
+
+@admin.register(News)
+class NewsAdmin(admin.ModelAdmin):
+    list_display = ('publish', 'title', 'text', "photo")
+
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('author', 'content', 'rating', 'pub_date')
+
+
+@admin.register(SaleCode)
+class SaleAdmin(admin.ModelAdmin):
+    list_display = ('code', )

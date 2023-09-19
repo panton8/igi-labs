@@ -28,6 +28,7 @@ class SortForm(forms.Form):
 class TicketPostForm(forms.Form):
      session = forms.ModelChoiceField(queryset=Session.objects.all(), empty_label="Session not selected")
      seats = forms.IntegerField(min_value=1, max_value=5)
+     code = forms.CharField(max_length=8, initial="NOSALE")
 
 
 class RegisterUserForm(UserCreationForm):
@@ -71,3 +72,19 @@ class DeleteTicketForm(forms.Form):
 class ChangeTicketForm(forms.Form):
     session_number = forms.IntegerField(min_value=1)
     seats = forms.IntegerField(min_value=1)
+
+
+class ReviewForm(forms.Form):
+    content = forms.CharField(label="", widget=forms.Textarea(
+        attrs={
+            'class': 'form-control',
+            'placeholder': 'Comment here !',
+            'rows': 10,
+            'cols': 50
+        }))
+
+    class Meta:
+        model = Review
+        fields = ['content']
+
+    rating = forms.FloatField(min_value=1, max_value=10)

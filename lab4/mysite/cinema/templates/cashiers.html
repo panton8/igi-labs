@@ -4,11 +4,21 @@
 <h1>{{title}}</h1>
 <ul>
     {% for c in cashiers %}
-				<li><h2>{{c.full_name}}</h2>
-	{% if c.photo %}
-		<p><img class="img-article" src="{{ c.photo.url }}">
-	{% endif %}
-			<hr>
-	{% endfor %}
+        <li itemscope itemtype="https://schema.org/Person">
+            <h2 itemprop="name">{{c.full_name}}</h2>
+            {% if c.photo %}
+                <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+                    <img class="img-article-left thumb" src="{{ c.photo.url }}" itemprop="url">
+                    <meta itemprop="width" content="300">
+                    <meta itemprop="height" content="400">
+                </div>
+            {% endif %}
+            <h4 itemprop="jobTitle">Position: {{c.position}}</h4>
+            <p><strong>Role:</strong> <span itemprop="role">{{c.role}}</span></p>
+            <p><strong>Phone:</strong> <span itemprop="telephone">{{c.phone_number}}</span></p>
+            <p><strong>Email:</strong> <a href="mailto:{{c.email}}" itemprop="email">{{c.email}}</a></p>
+            <hr>
+        </li>
+    {% endfor %}
 </ul>
 {% endblock %}
