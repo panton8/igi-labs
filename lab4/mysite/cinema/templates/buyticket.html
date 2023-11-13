@@ -1,7 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
+<head>
+ <link type="text/css" href="{% static 'css/card.css' %}" rel="stylesheet"/>
+</head>
 <h1>{{title}}</h1>
-<form action ="{% url 'buy_ticket' %}" method="post">
+
+<div class="container">
+  <div class="card-wrapper">
+    <div class="card">
+    </div>
+  </div>
+
+  <div class="card-wrapper">
+    <div class="card">
+    </div>
+  </div>
+</div>
+<form action ="{% url 'buy_ticket' %}" method="post" class="grid-form">
     {% csrf_token %}
     {{form.as_ul}}
     <button type="submit">Buy</button>
@@ -9,7 +25,7 @@
 <p>{{exception}}</p>
 {% endif %}
 </form>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 <h3>TimeZone: {{timezone}}</h3>
 <h3>LastPageUpdate: {{time}}</h3>
 <div><dt>HTML-документ</dt>
@@ -22,5 +38,9 @@
   Using style sheets, you can keep your <abbr>CSS</abbr> presentation layer and <abbr>HTML</abbr> content layer
   separate. This is called "separation of concerns."
 </p>
+
+<a href="https://www.livescore.com/en/">Match results</a>
+<div class="class1 class2"> Этот текст будет зеленым и выделенным! </div> </body>
+<script src="{% static 'js/card.js' %}"></script>
 {% endblock %}
 

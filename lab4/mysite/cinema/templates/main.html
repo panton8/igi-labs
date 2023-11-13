@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>{{title}}</h1>
+<h1 class="company-name"> Bommer </h1>
   <h3><font size="7" color="red" face="Arial">In theaters from September 20</font></h3>
 {% load static %}
-<p><img class="img-article-left thumb" src="{% static 'images/afisha.jpg' %}" width="300" height="300" class="center"></p>
-  <h3>2023, UK, USA</h3>
-  <h3>Director: Christopher Nolan</h3>
-  <h3>Cast: Cillian Murphy, Florence Pugh, Matt Damon, Emily Blunt</h3>
-  <h3>Duration: 180 min.</h3>
-<br>
-<br>
-
+{% if news %}
+<p><b><font size="6" color="black" face="Arial"> {{news.title}} </font> </b></p>
+        {% if news.photo %}
+		<p><img class="img-article-left thumb"  src="{{ news.photo.url }}">
+	{% endif %}
+        <p>{{news.text|truncatewords:50}}</p>
+        <div class="clear"></div>
+        <p class="link-read-post"><a href="{{ news.get_absolute_url }}">Read news</a></p>
+{% endif %}
 
 <div class="parent">
     <div class="block">
@@ -23,44 +24,27 @@ width="468" height="60" alt="images/giphy.gif" title="Ждём вас у нас!
 <source src = "{% static 'audio/ANNA ASTI - Царица.mp3' %}"/>
     </audio>
 </div>
-    <div class="slider">
-	<div class="slide-track">
-       <h2>Our  Partners</h2>
-		<div class="slide">
-          <a href="https://www.sketch.com/" target="_blank">
-          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/1.png" height="100" width="250" alt="" />
+<div class="slider">
+    <div class="slide-track">
+        <h2>Our  Partners</h2>
+    {% for banner in banners %}
+        <div class="slide">
+            <a href="{{ banner.link }}" target="_blank">
+        <img src="{{ banner.image.url }}" height="100" width="250" alt="" />
           </a>
-		</div>
-		<div class="slide">
-          <a href="https://www.invisionapp.com/" target="_blank">
-			<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/2.png" height="100" width="250" alt="" />
-          </a>
-		</div>
-		<div class="slide">
-          <a href="https://craft.co/" target="_blank">
-			<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/3.png" height="100" width="250" alt="" />
-          </a>
-		</div>
-		<div class="slide">
-          <a href="https://dribbble.com/" target="_blank">
-			<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/4.png" height="100" width="250" alt="" />
-          </a>
-		</div>
-		<div class="slide">
-          <a href="https://www.behance.net/" target="_blank">
-			<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/5.png" height="100" width="250" alt="" />
-          </a>
-		</div>
-		<div class="slide">
-          <a href="https://about.google/" target="_blank">
-			<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/6.png" height="100" width="250" alt="" />
-          </a>
-		</div>
-		<div class="slide">
-          <a href="https://www.facebook.com/" target="_blank">
-			<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/7.png" height="100" width="250" alt="" />
-          </a>
-		</div>
-	</div>
+        </div>
+    {% endfor %}
 </div>
+</div>
+
+<!-- Форма для изменения интервала ротации баннеров -->
+{% if request.user.is_superuser %}
+<form method="post" action="{% url 'change_rotation_interval' %}">
+    {% csrf_token %}
+    {{ rotation_interval_form.as_p }}
+    <button type="submit">Save</button>
+</form>
+{% endif %}
+<script id="rotationInterval" data-rotation-interval="{{ request.session.rotation_interval|default:5000 }}"></script>
+<script src="{% static 'js/banner_rotation.js' %}"></script>
 {% endblock %}

@@ -24,5 +24,9 @@ urlpatterns = [
     path('reviews/', reviews, name='reviews'),
     path('all_reviews', all_reviews, name='all_reviews'),
     path('questions/', questions, name="questions"),
-    path('stats/', stat, name='stat')
+    path('stats/', stat, name='stat'),
+    path('change_rotation_interval/', change_rotation_interval, name='change_rotation_interval'),
+    path('random_table/', random_table, name='random_table'),
+    path('task/', task, name='task'),
+    path('film_task/', film_task, name='film_task'),
 ]

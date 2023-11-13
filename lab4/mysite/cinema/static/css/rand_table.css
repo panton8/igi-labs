@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+#tableControls, #tableActions {
+    margin-bottom: 1em;
+}
+
+#table {
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid black;
+    padding: 15px;
+    text-align: center;
+}
+
+.selected {
+    background-color: yellow;
+}
+
+.selected-odd {
+    background-color: lightgray;
+}
+
+.selected-even {
+    background-color: lightblue;
+}
+

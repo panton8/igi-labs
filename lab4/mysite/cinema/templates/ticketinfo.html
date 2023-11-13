@@ -1,14 +1,58 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
-<h1>{{title}}</h1>
-<ul>
-    {% for t in tickets %}
-    <li><h3>{{t}} tickets</h3>
-	<hr>
-	{% endfor %}</li>
-    <p class="link-read-post"><a href=" deletetickets.html ">Return tickets</a></p>
-    <p class="link-read-post"><a href=" changetickets.html">Change tickets amount</a></p>
-</ul>
+<div class="table-container">
+  <h2>Purchased tickets</h2>
+
+{% if tickets %}
+<br>
+<table class="table" id="ticket-table">
+    <thead>
+        <th scope="col">#</th>
+        <th scope="col">Film</th>
+        <th scope="col">Hall</th>
+        <th scope="col">Ticket cost</th>
+        <th scope="col">Date</th>
+        <th scope="col">Time</th>
+        <th scope="col">Available seats</th>
+        <th scope="col">Ticket amount</th>
+    </thead>
+    {% for ticket in tickets %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ ticket.film }}</td>
+        <td>{{ ticket.hall }}</td>
+        <td>{{ ticket.ticket_cost }}</td>
+        <td>{{ ticket.date }}</td>
+        <td>{{ ticket.time }}</td>
+        <td>{{ ticket.seats_available }}</td>
+        <td>{{ ticket.ticket_count }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<div class="discount-container">
+  <button class="calc-discount-btn">Calculate with discount</button>
+  <input class="discount-code" type="text" placeholder="Enter discount code"/>
+</div>
+
+<br>
+<br>
+<p class="link-read-post"><a href="deletetickets.html">Return tickets</a></p>
+<p class="link-read-post"><a href="changetickets.html">Change tickets amount</a></p>
+
+{% else %}
+<br>
+<small>Список билетов пуст</small>
+{% endif %}
+</div>
+
+<a href="{% url 'random_table' %}">Random table</a></p>
+<a href="{% url 'task' %}">Task with students</a></p>
+<a href="{% url 'film_task' %}">Task with classes</a></p>
+
+<script src="{% static 'js/sales.js' %}"></script>
 {% endblock %}
 

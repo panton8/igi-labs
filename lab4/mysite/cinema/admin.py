@@ -7,7 +7,7 @@ admin.site.register(Country)
 admin.site.register(Genre)
 User = get_user_model()
 admin.site.register(User)
-
+admin.site.register(Banner)
 
 
 @admin.register(Film)

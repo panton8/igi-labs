@@ -15,7 +15,11 @@ import matplotlib.pyplot as plt
 from django.db.models import Count
 from django.db.models.functions import TruncMonth
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+from django.contrib.auth.decorators import user_passes_test
 
+def is_admin(user):
+    return user.is_superuser
 
 class FilmHome(DataMixin, ListView):
     model = Film
@@ -50,10 +54,26 @@ def list_news(request):
 
 
 def main(request):
-    if not request.user.is_authenticated:
-        return render(request, 'main.html', {'title': 'Main Page', 'menu': menu[0::2]})
-    return render(request, 'main.html', {'title': 'Main Page', 'menu': menu})
+    news = News.objects.latest('publish')
+    banners = Banner.objects.all()
+    rotation_interval_form = RotationIntervalForm()
 
+    if not request.user.is_authenticated:
+        return render(request, 'main.html', {
+            'title': 'Main Page',
+            'menu': menu[0::2],
+            'news': news,
+            'banners': banners,
+            'rotation_interval_form': rotation_interval_form
+        })
+
+    return render(request, 'main.html', {
+        'title': 'Main Page',
+        'menu': menu,
+        'news': news,
+        'banners': banners,
+        'rotation_interval_form': rotation_interval_form
+    })
 
 @login_required
 def buy_ticket(request):
@@ -106,12 +126,19 @@ def questions(request):
 
 
 def all_reviews(request):
+    reviews_list = Review.objects.all()  # Получаем все reviews
+
+    paginator = Paginator(reviews_list, 5)  # Ставим 10 reviews на одну страницу
+
+    page_number = request.GET.get('page', 1)
+
     context = {
         'menu': menu,
         'title': 'Reviews',
-        "reviews": Review.objects.all()
+        'reviews_page': paginator.get_page(page_number)  # Получаем объект Page для данной страницы
     }
     return render(request, 'all_reviews.html', context=context)
+
 
 
 def reviews(request):
@@ -125,14 +152,17 @@ def reviews(request):
                 print(reviewer)
                 review = Review(author=reviewer, content=content, rating=rating)
                 review.save()
+
+                reviews_list = Review.objects.all()  # Получаем все reviews
+                paginator = Paginator(reviews_list, 5)  # Ставим 5 reviews на одну страницу
+                page_number = request.GET.get('page', 1)
                 context = {
-                    'form': cf,
                     'menu': menu,
                     'title': 'Reviews',
                     'exception': "",
-                    "reviews": Review.objects.all()
+                    'reviews_page': paginator.get_page(page_number)
                 }
-                return render(request, 'all_reviews.html', context=context)
+                return list_news(request)
             else:
                 cf = ReviewForm()
                 print("wrong")
@@ -273,14 +303,27 @@ def show_tickets(request):
     user = CustomUser.objects.get(email=request.user.email)
     client = Client.objects.get(phone_number=user.phone_number)
     purchases = Purchase.objects.filter(client_id=client.id)
-    amount_of_tickets = iter([purchase.amount_of_tickets for purchase in purchases])
-    sessions_id = [purchase.session_id for purchase in purchases]
-    sessions = [Session.objects.get(pk=ses_id).__str__().strip("00:00").strip("+") for ses_id in sessions_id]
-    sessions = [ses + ", Tickets: " + str(next(amount_of_tickets)) for ses in sessions]
-    for i in range(len(sessions)):
-        sessions[i] = str(i+1) + ') ' + sessions[i]
+
+    tickets = []
+    for purchase in purchases:
+        session = Session.objects.get(pk=purchase.session_id)
+        raw_name = session.__str__().strip("00:00").strip("+")
+        raw_name_parts = raw_name.split(', ')
+        name_data = {part.split(": ")[0]: part.split(": ")[1] for part in raw_name_parts}
+
+        ticket = {
+            'film': name_data.get('Film', None),
+            'hall': "№" + name_data.get('Hall', None)[1:],
+            'ticket_cost': name_data.get('Ticket Cost', None),
+            'date': name_data.get('Date', None)[:10],
+            'time': name_data.get('Date', None)[11:16],
+            'seats_available': name_data.get('Seats available', None),
+            'ticket_count': purchase.amount_of_tickets,
+        }
+        tickets.append(ticket)
+
     context = {
-        'tickets': sessions,
+        'tickets': tickets,
         'title': 'Tickets',
         'menu': menu
     }
@@ -388,3 +431,24 @@ def stat(request):
     plt.title('Stats')
     plt.savefig('cinema/static/app_statistics/stats.png', format='png')
     return render(request, 'stats.html', context=context)
+
+@user_passes_test(is_admin)
+def change_rotation_interval(request):
+    if request.method == 'POST':
+        form = RotationIntervalForm(request.POST)
+        if form.is_valid():
+            rotation_interval = form.cleaned_data['rotation_interval']
+            # Сохранить интервал времени в сессию Django
+            request.session['rotation_interval'] = rotation_interval
+            return redirect('main')
+    return render(request, 'change_rotation_interval.html', {'form': RotationIntervalForm()})
+
+
+def random_table(request):
+    return render(request, 'random_table.html')
+
+def task(request):
+    return render(request, 'task.html')
+
+def film_task(request):
+    return render(request, 'film_class.html')

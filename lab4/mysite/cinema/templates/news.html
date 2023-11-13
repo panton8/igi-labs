@@ -3,10 +3,12 @@
 {% block content %}
 <small>{{news.publish}}</small>
 <ul>
+    <li>
   <h2>{{news.title}}</h2>
   {% if news.photo %}
 		<p><img class="img-article-left thumb"  src="{{ news.photo.url }}">
 	{% endif %}
-  <article>{{news.text}}</article>
+  <p class="multicolumn">{{news.text}}</p>
+    </li>
 </ul>
 {% endblock %}

@@ -1,0 +1,46 @@
+<html>
+{% load static %}
+<head>
+  <title>Students</title>
+  <link type="text/css" href="{% static 'css/task.css' %}" rel="stylesheet"/>
+</head>
+<body>
+  <h1>Анализ оценок учеников</h1>
+  <form id="addStudentForm">
+    <h2>Добавить нового ученика</h2>
+    <label for="firstName">Имя:</label>
+    <input type="text" id="firstName" required>
+    <label for="lastName">Фамилия:</label>
+    <input type="text" id="lastName" required>
+    <h3>Оценки:</h3>
+    <label for="physicsGrade">Физика:</label>
+    <input type="number" id="physicsGrade" min="1" max="5" required>
+    <label for="mathGrade">Математика:</label>
+    <input type="number" id="mathGrade" min="1" max="5" required>
+    <label for="literatureGrade">Литература:</label>
+    <input type="number" id="literatureGrade" min="1" max="5" required>
+    <button type="submit">Добавить ученика</button>
+  </form>
+  <div id="studentsList">
+    <h2>Список учеников</h2>
+    <table id="studentsTable">
+      <thead>
+        <tr>
+          <th>Имя</th>
+          <th>Фамилия</th>
+          <th>Физика</th>
+          <th>Математика</th>
+          <th>Литература</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <div id="results">
+    <h2>Ученики с отметками не ниже 4</h2>
+    <ul id="resultsList"></ul>
+  </div>
+
+<script src="{% static 'js/task.js' %}"></script>
+</body>
+</html>

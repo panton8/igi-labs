@@ -1,22 +1,8 @@
-html, body {
-	font-family: 'Arial';
-	margin: 0;
-	padding: 0;
-	height: 100%;
-	width: 100%;
-	color: #444;
-}
-
 a {
 	color: #0059b2;
 	text-decoration: none;
 }
-a:hover {
-	color: #CC0000;
-	text-decoration: underline;
-}
-
-img {max-width: 600px; height: auto;}
+img {max-width: 100%;  height: auto;}
 
 img.img-article-left {
 	max-width: 300px;
@@ -55,15 +41,6 @@ div.article-panel p.first {
 div.article-panel p.last {
     margin: 0;
     float: right;
-}
-
-ul.list-articles {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-ul.list-articles li {
-	border-bottom: 1px solid #ccc;
 }
 
 .table-page {
@@ -391,7 +368,425 @@ ul.lang-list li a:hover {color: #fdc073;}
     font-size: 16px;
 }
 
-summary::-webkit-details-marker {
+s
+:root {
+  font-size: 112.5%;
+  line-height: 1.5;
+}
+body {
+  background: #a4bacc99;
+  color: #226daa;
+  font-family: Raleway, sans-serif;
+  margin: 1rem;
+}
+* {
+  box-sizing: border-box;
+}
+aside {
+  width: 38em;
+  max-width: 98vw;
+}
+
+/* 1 */
+p { /* Селектор элементa*/
+  font-size: 20px;
+  color: #339;
+  margin-bottom: 10px;
+}
+div {
+  font-size: 15px;
+}
+
+
+[href^="https://"] { /* Селектор атрибутa (buyticket)*/
+  color: blue;
+  text-decoration: underline;
+}
+
+.highlight { /* Селектор классa (about: address, phone) */
+  background-color: yellow;
+  font-weight: bold;
+}
+
+div > p { /*Комбинированный селектор (сертификат)*/
+font-style: italic;
+}
+
+.class1.class2 {
+color: green; (buyticket)
+font-weight: bold;
+}
+
+/* 2 */
+a:link {
+  color: blue; /* для непосещенных ссылок */
+}
+
+a:visited {
+  color: purple; /* для посещенных ссылок */
+}
+
+a:hover {
+  color: red; /* Цвет при наведении */
+}
+
+a:active {
+  color: yellow; /* для активных ссылок (в момент нажатия) */
+}
+
+a:focus {
+  outline: 2px solid green; /* для элементов в фокусе */
+}
+
+ul.list-articles li:not(:first-child):not(:last-child):nth-child(odd) {
+  background-color: lightgrey; /* Стили для нечетных элементов в списке не включающих первый и последний  */
+}
+
+ul.list-articles li:not(:first-child):not(:last-child):nth-child(even) {
+  background-color: white; /* Стили для четных элементов в списке не включающих первый и последний  */
+}
+
+ul.list-articles li:first-child {
+  background-color: lightblue; /* Стили для первого элемента в списке */
+}
+
+ul.list-articles li:last-child {
+  background-color: lightgreen; /* Стили для последнего элемента в списке */
+}
+
+input:required {
+  border: 1px solid red; /* для обязательных элементов формы */
+}
+
+input:out-of-range {
+  background-color: yellow;/* для элементов со значениями вне диапазона */
+}
+
+q[lang="ru"]::before {
+    content: "«";
+    color: #ff0000; /* red color */
+}
+
+q[lang="ru"]::after {
+    content: "»";
+    color: #ff0000; /* red color */
+}
+
+q:not([lang="ru"])::before {
+    content: "“";
+    color: #0000ff; /* blue color */
+}
+
+q:not([lang="ru"])::after {
+    content: "”";
+    color: #0000ff; /* blue color */
+}
+
+/* 3 */
+p::first-letter {
+  font-size: larger;
+  font-weight: bold;
+}
+
+.context::before {
+  content: "Start: ";
+}
+
+.context::after {
+  content: "The end.";
+}
+
+.unicode-list::marker {
+  list-style-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='50'%3E%3Ctext x='8' y='16' fill='%23000' font-size='14px' font-weight='bold' font-family='Arial' dy='.35em' text-anchor='start'%3E⚽⚽⚽%3C/text%3E%3C/svg%3E");
+}
+
+::selection {
+  background-color: yellow;
+  color: red;
+}
+
+/* 4 */
+@font-face {
+    font-family: 'Lato';
+    src: url('https://fonts.gstatic.com/s/lato/v17/S6uyw4BMUTPHjx4wXiWtFCc.woff2') format('woff2'),
+        url('https://fonts.gstatic.com/s/lato/v17/S6uyw4BMUTPHjx4wXg.woff') format('woff');
+    font-weight: 400; /* насыщенность или толщина шрифта */
+    font-style: normal; /* стиль шрифта */
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu72xKOzY.woff2') format('woff2'),
+        url('https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu5mxKOzY.woff') format('woff');
+    font-weight: 400; /* насыщенность или толщина шрифта */
+    font-style: normal; /* стиль шрифта */
+}
+
+body {
+    font-family: 'Lato', 'Roboto', sans-serif; /* используем сначала шрифт 'Lato', если он недоступен - 'Roboto', если и он недоступен - используем шрифт без засечек по умолчанию */
+}
+
+
+/* 5, 8 */
+
+@media screen and (max-width: 768px) and (max-height: 1024px) {
+  body {
+    font-size: 16px;
+    background-color: lightblue;
+  }
+}
+
+@media screen and (min-width: 1024px) and (min-height: 768px) {
+  body {
+    font-size: 18px;
+    background-color: #f4f4f4;;
+  }
+}
+
+/* 6 */
+.button {
+    cursor: pointer;
+}
+
+
+/* 7 - about(BOMMER Cinema is ...) */
+.text-fragment {
+      padding: 10px;
+      margin: 10px;
+      font-family: Arial, sans-serif;
+      text-transform: uppercase;
+      text-indent: 50px;
+      line-height: 1.5;
+      word-spacing: normal;
+      letter-spacing: normal;
+      word-wrap: break-word;
+      hyphens: auto;
+      text-align: justify; /* выравнивание текста внутри элемента */
+      position: relative; /* определяет позиционирование элемента на странице */
+    }
+
+/* 9 - buyticket */
+.grid-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+}
+.grid-form button {
+    grid-column: 1;
+}
+.grid-form p {
+    grid-column: 1;
+}
+
+/* 10 */
+.slide-track .slide {
+    width: 250px;
+    height: 100px;
+    background-color: #ADD8E6;
+    border-radius: 50%;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+.slide-track .slide:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4); /* сделать тень темнее при наведении */
+}
+
+/* 11 */
+.company-name {
+  font-family: "Arial", sans-serif;
+  letter-spacing: 22px;
+}
+/* 12 */
+.block img {
+  animation: scaleAndTranslate 5s infinite;
+}
+
+@keyframes scaleAndTranslate {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1) translate(0px, -30px);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 13 */
+/*Стили для заголовка новости*/
+p > b > font {
+    position: relative;
+    left: 20px; // Сместить заголовок в правую сторону
+    top: 10px; // Сместить заголовок вниз
+}
+
+/*Стили для изображения новости, если оно есть */
+img.img-article-left.thumb {
+    position: relative;
+    height: auto;
+}
+
+/*Стили для текста новости */
+p:nth-of-type(2) { // Применять этот стиль для второго параграфа
+    position: relative;
+    left: 20px; // Сместить текст в правую сторону
+    top: 20px; // Сместить текст вниз
+}
+
+/* 14 */
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 50;
+  background: #FFFFFF;
+}
+ /* 15 */
+ .img-article-left {
+    transition: 2s;
+}
+
+.img-article-left:hover {
+    transform: rotate(180deg);
+}
+
+/* 16 */
+.wpb_wrapper {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+#history {
+    text-align: center;
+    font-size: 24px;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+.timeline-header {
+    border-bottom: 1px solid #000;
+    margin-bottom: 20px;
+}
+
+.timeline-header h2 {
+    font-size: 22px;
+    color: #000;
+}
+
+#timeline-item-1 p, #timeline-item-2 p, #timeline-item-3 p,
+#timeline-item-4 p, #timeline-item-5 p, #timeline-item-6 p,
+#timeline-item-7 p, #timeline-item-8 p {
+    color: #666;
+}
+
+#timeline-item-2 p, #timeline-item-6 p {
+    color: red;
+}
+
+#requisites {
+    font-weight: bold;
+    color: #000;
+}
+
+.bordered {
+    background: url('../images/back.jpg');
+    background-size: 1500px 1700px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.align-center {
+    text-align: center;
+    position: relative;
+    top: 200px;
+}
+
+.float-left {
+    float: left;
+    margin-right: 100px;
+}
+
+.float-right {
+    float: right;
+
+}
+
+.margin0 {
+    margin: 101px;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+
+
+.example_text {
+    margin-left: 20px;
+    text-align: left;
+    position: relative;
+    left: 180px;
+    font-size: 25px;
+}
+
+
+.small-text.align-right {
+    text-align: right;
+    position: relative;
+    top: -150px;
+    left: -180px
+}
+
+/*17*/
+/* Стилизация списка статей */
+.article-list {
+  display: grid;
+  grid-template-columns: repeat(4,28%);
+
+}
+
+/* Стилизация отдельной статьи */
+.article {
+  border: 1px solid #ccc;
+  overflow: hidden;
+}
+
+.article h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.article p {
+  margin-bottom: 10px;
+  line-height: 1;
+  height: 105px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.article img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.article .read-more {
+  display: inline-block;
+  background-color: #333;
+  color: #fff;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.article .read-more:hover {
+  background-color: #555;
+}
+
+/*18*/
+ummary::-webkit-details-marker {
     display: none
 }
 
@@ -413,3 +808,217 @@ details[open] summary::after {
     content: "-";
 }
 
+details {
+  border-radius: 0.5rem;
+  margin: 1rem ;
+  transition: 50ms;
+}
+details[open] {
+    padding-bottom: 1em;
+}
+
+summary::before,
+summary::after {
+    transition: 200ms;
+}
+summary {
+  position: relative;
+}
+summary::marker {
+  content: none;
+}
+summary::before,
+summary::after {
+  content: '';
+}
+summary::before,
+summary::after {
+    width: .75em;
+    height: 0;
+    border-bottom: 2px solid;
+    position: absolute;
+    top: calc(50% - 1px);
+    right: 0;
+    transform: translateY(-50%);
+}
+summary::after {
+  transform: rotate(90deg);
+  transform-origin: 50% 50%;
+}
+[open] summary::after {
+  transform: rotate(0deg);
+}
+
+details {
+  border: 1px solid;
+  padding: 0 1rem;
+  background: white;
+}
+details + details {
+  border-top: none;
+}
+details[open] {
+    padding-bottom: 1em;
+}
+summary {
+  padding: 1rem 2em 1rem 0;
+  font-size: 1.25rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/*19*/
+
+li {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    background-color: #fff;
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;  /* for rounded corners */
+}
+
+div[itemprop='image'] {
+    margin: 15px; /* spacing around the image */
+}
+
+
+/* detailed info box */
+li > div  {
+    padding: 15px;
+    flex-grow: 1;  /* flex-grow ensures the box fills the parent */
+}
+/*20*/
+h1 {
+color: #4F4F4F; font-size: 2.5em; margin-bottom: 20px; text-align: center;
+}
+ hr { margin-bottom: 20px; }
+  p { font-size: 20px; line-height: 1.5em; margin-bottom: 10px; }
+  .bottom-right { posistion: absolute; bottom: 0; right: 0; margin: 20px; font-size: 18px; color: darkred; font-weight: bold; }
+  .indent-1 { margin-left: 40px; }
+  .indent-2 { margin-left: 75px; }
+/*21*/
+  .vacancy {
+    float: left;
+    width: 50%;
+  }
+
+  .vacancy-description {
+    clear: both;
+  }
+
+/*22*/
+
+.list-articles li p {
+    overflow-wrap: break-word;
+}
+
+.pagination {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em 0;
+    margin-bottom: 1em;
+}
+
+.pagination a {
+    background-color: #ff7f00;
+    color: white;
+    text-decoration: none;
+    padding: .5em 1em;
+    margin: 0 .5em;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.pagination a:hover {
+    background-color: #cc6600;
+}
+
+.pagination .current-page {
+    padding: .5em 1em;
+    margin: 0 .5em;
+}
+
+
+/*23*/
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+th, td {
+    border: 1px solid transparent;
+    padding: 8px;
+    text-align: center; /* добавлено горизонтальное выравнивание */
+    vertical-align: middle; /* добавлено вертикальное выравнивание */
+}
+
+td:empty {
+    background-color: #ccc; /* фон для пустых ячеек */
+}
+
+.table-container {
+    margin: 20px auto; /* пример расположения таблицы на странице */
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* фон для четных строк */
+}
+
+td:first-child {
+    background-color: #ccc; /* фон для первой колонки */
+}
+
+.table-container h2 {
+    /* стили для заголовка таблицы */
+}
+.table-container h2 {
+    /* Font Styles */
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+
+    /* Text Formatting */
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+
+    /* Spacing */
+    margin-top: 10px;
+    margin-bottom: 20px;
+
+    /* Other */
+    border-bottom: 2px solid #aaa;
+    padding-bottom: 5px;
+
+}
+
+.multicolumn {
+  column-count: 3; /* Устанавливаем количество колонок */
+}
+
+.multicolumn {
+  column-width: 200px; /* Устанавливаем ширину колонок */
+}
+
+.multicolumn {
+  column-count: 3;
+  column-gap: 20px; /* Устанавливаем промежуток между колонками */
+  column-rule: 1px solid #ccc; /* Добавляем вертикальную черту между колонками */
+}
+
+html, body {
+    font-size: 16px;
+    color: #444;
+	font-family: 'Arial';
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+}

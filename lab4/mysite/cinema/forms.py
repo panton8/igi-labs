@@ -75,7 +75,7 @@ class ChangeTicketForm(forms.Form):
 
 
 class ReviewForm(forms.Form):
-    content = forms.CharField(label="", widget=forms.Textarea(
+    content = forms.CharField(label="", required=True, widget=forms.Textarea(
         attrs={
             'class': 'form-control',
             'placeholder': 'Comment here !',
@@ -83,8 +83,14 @@ class ReviewForm(forms.Form):
             'cols': 50
         }))
 
+    rating = forms.FloatField(min_value=1, max_value=10, required=True)
+
     class Meta:
         model = Review
-        fields = ['content']
+        fields = ['content', 'rating']
 
-    rating = forms.FloatField(min_value=1, max_value=10)
+class RotationIntervalForm(forms.Form):
+    rotation_interval = forms.IntegerField(
+        min_value=1000,
+        label='Rotation Interval (in milliseconds)'
+    )

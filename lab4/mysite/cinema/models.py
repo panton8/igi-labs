@@ -200,4 +200,10 @@ class Purchase(models.Model):
     updated_at = models.DateTimeField(help_text='Date and time when ticket was updated')
     amount_of_tickets = models.IntegerField(default=1)
 
+class Banner(models.Model):
+    title = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='banners/')
+    link = models.URLField()
 
+    def __str__(self):
+        return self.title

@@ -2,19 +2,19 @@
 
 {% block content %}
 <h1>{{title}}</h1>
-<ul class="list-articles">
+<div class="article-list">
     {% for n in news %}
-    <li>
-    <p><small>{{n.publish}}</small><p>
-    <p><b><font size="6" color="black" face="Arial"> {{n.title}} </font> </b></p>
+    <div class="article unicode-list">
+        <h2><small>{{n.publish}}</small></h2>
+        <h2><b><font size="6" color="black" face="Arial"> {{n.title}} </font> </b></h2>
         {% if n.photo %}
-		<p><img class="img-article-left thumb"  src="{{ n.photo.url }}">
+		<img class="img-article-left thumb"  src="{{ n.photo.url }}">
 	{% endif %}
         <p>{{n.text|truncatewords:50}}</p>
         <div class="clear"></div>
-        <p class="link-read-post"><a href="{{ n.get_absolute_url }}">Read news</a></p>
-    <hr>
-    </li>
+        <a class="read-more" href="{{ n.get_absolute_url }}">Read news</a>
+    </div>
+	<hr>
 	{% endfor %}
-</ul>
+</div>
 {% endblock %}

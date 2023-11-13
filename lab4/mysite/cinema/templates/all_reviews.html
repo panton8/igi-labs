@@ -3,14 +3,25 @@
 {% block content %}
 <h1>{{title}}</h1>
 <ul class="list-articles">
-    {% for r in reviews %}
+    {% for r in reviews_page %}
     <li>
-    <p><small>{{r.pub_date}}</small><p>
-    <p>Author: {{r.author}}</p>
-    <p>Review: {{r.content}}</p>
-    <p>Rating: {{r.rating}}</p>
-    <hr>
+        <p><small>{{r.pub_date}}</small></p>
+        <p>Author: {{r.author}}</p>
+        <p>Review: {{r.content}}</p>
+        <p>Rating: {{r.rating}}</p>
     </li>
-	{% endfor %}
+    {% endfor %}
 </ul>
+
+<div class="pagination">
+    {% if reviews_page.has_previous %}
+        <a href="?page={{ reviews_page.previous_page_number }}"><< Previous</a>
+    {% endif %}
+
+    <span class="current-page">Page {{ reviews_page.number }} of {{ reviews_page.paginator.num_pages }}</span>
+
+    {% if reviews_page.has_next %}
+        <a href="?page={{ reviews_page.next_page_number }}">Next >></a>
+    {% endif %}
+</div>
 {% endblock %}

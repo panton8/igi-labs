@@ -34,14 +34,11 @@
                         <li class="last"><a href="{% url 'register' %}">Sign Up</a> | <a href="{% url 'login' %}">Sign
                             In</a></li>
                         {% endif %}
+                         <p id="countdown"/>
                     </ul>
                     <div class="clear"></div>
                 </div>
                 {% endblock mainmenu %}
-            </td>
-        </tr>
-        <tr>
-            <td valign=top>
             </td>
         </tr></table>
     </nav>
@@ -90,6 +87,20 @@
         </tr>
     </table>
 </main>
+
+<!-- Checkbox for triggering form generation -->
+<div>
+    <label for="generateForm">Generate control panel:</label>
+    <input type="checkbox" id="generateForm">
+</div>
+
+<!-- Placeholder for generated control panel  -->
+<div id="control-panel">
+    <!-- Control panel will be generated here -->
+</div>
+
+
+
 <style>
     ody {
         margin: 0;
@@ -167,7 +178,9 @@
         <div class="row">
             INFERNO Copyright © 2021 Inferno - All rights reserved || Designed By: Mahesh
         </div>
-    </div>
+    </div>>
 </footer>
+<script src="{% static 'js/timer.js' %}"></script>
+<script src="{% static 'js/text_settings.js' %}"></script>
 </body>
 </html>

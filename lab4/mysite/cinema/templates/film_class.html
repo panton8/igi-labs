@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Test JavaScript</title>
+</head>
+<body>
+    <input id="myInput" type="text">
+    <button onclick="testInput()">Set Description</button>
+    <button onclick="testError()">Set Error</button>
+    <div id="errorDiv"></div>
+    <div id="filmDiv"></div>
+<script src="{% static 'js/class.js' %}"></script>
+</body>
+</html>

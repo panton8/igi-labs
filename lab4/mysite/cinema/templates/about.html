@@ -1,20 +1,35 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>{{title}}</h1>
-<h2 id="contents">Оглавление</h2>
-    <ol>
-      <li><a href="#part1">Part 1</a></li>
-      <li><a href="#part2">Part 2</a></li>
-      <li><a href="#part3">Part 3</a></li>
-    </ol>
-
 {% load static %}
+<head>
+ <link type="text/css" href="{% static 'css/bommer.css' %}" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<h1>{{title}} </h1>
+ <section id="top">
+      <img src=https://dana-mall.com/assets/images/news/15/august-09/01.jpeg id="bg" />
+      <h6 id="text">Bommer</h6>
+      <img src="https://aryan-tayal.github.io/Mountains-Parallax/clouds_1.png" id="clouds_1" style="left:0px"/>
+      <img src="https://aryan-tayal.github.io/Mountains-Parallax/clouds_2.png" id="clouds_2" style="left:0px"/>
+      <img src="https://aryan-tayal.github.io/Mountains-Parallax/mountain_left.png" style="filter: brightness(0.6) grayscale(100%)" id="left_c" style="left:0px"/>
+      <img src="https://aryan-tayal.github.io/Mountains-Parallax/mountain_right.png" style="filter: brightness(0.6) grayscale(100%)" id="right_c" style="left:0px"/>
+ </section>
+<div class="table-of-contents">
+    <h2>Table of Contents</h2>
+    <ol>
+        <li><a href="#part1">Part 1</a></li>
+        <li><a href="#part2">Part 2</a></li>
+        <li><a href="#part3">Part 3</a></li>
+    </ol>
+</div>
+
+
 <h2 id="part1" style="text-align: center;"><strong>Part 1</strong></h2>
 <p><img class="img-article-left" src="{% static 'images/cinlogo.jpg' %}" width="300" height="300"></p>
 <h3>Address:</h3>
-<p>Minsk, st. Bobruisk, 6</p>
+<p class="highlight">Minsk, st. Bobruisk, 6</p>
 <h3>Phone number:</h3>
-<p>+375(44) 541-77-12</p>
+<p class="highlight">+375(44) 541-77-12</p>
 <br><br><br>
 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2351.3515882069623!2d27.552274477276807!3d53.88995457245201!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbcfdbf5d56fbb%3A0x93e81f2f953deff3!2z0YPQuy4g0JHQvtCx0YDRg9C50YHQutCw0Y8gNiwg0JzQuNC90YHQug!5e0!3m2!1sru!2sby!4v1694605417224!5m2!1sru!2sby" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 <br><br><br>
@@ -22,13 +37,13 @@
 <h3 itemscope
   itemid="urn:isbn:0-374-22848-5<">About the cinema:</h3>
 
-<p style="text-indent: 50px;">
-    BOMMER Cinema is a new chain of cinemas with unique technical solutions, atmospheric space, trendy design and exceptional service.
-    The network of cinemas SKYLINE Cinema will be developed in Minsk and regions throughout Belarus. Multiplexes will appear in large shopping centers with busy traffic and family audiences.
-The cinema space occupies more than 3,500 m2 in the Galileo shopping center. On three tiers, 7 cinema halls of different capacities will work.
-The English architectural firm Chapman Taylor is responsible for the design, creating interiors for cinemas in Dubai (the famous multiplex in Dubai Mall), London, Hamburg and Madrid. There has never been anything like it in Belarus, both in terms of the visual concept and the level of finish and decor.
-The ideal 4K image is provided thanks to the ultra-modern laser projectors of the fourth series BARCO SP4K and SP2K made in Belgium. Surround multi-channel sound is reproduced by high-quality MAG AUDIO acoustic systems and American QSC cinema processors. Silver screens from the industry leader - Galaite Prism give you the opportunity to enjoy the depth of colors from anywhere in the room. All this makes our cinemas one of the most high-tech in Belarus!
-</p>
+  <div class="text-fragment" id="animated-title">
+      BOMMER Cinema is a new chain of cinemas with unique technical solutions, atmospheric space, trendy design and exceptional service.
+      The network of cinemas SKYLINE Cinema will be developed in Minsk and regions throughout Belarus. Multiplexes will appear in large shopping centers with busy traffic and family audiences.
+      The cinema space occupies more than 3,500 m2 in the Galileo shopping center. On three tiers, 7 cinema halls of different capacities will work.
+      The English architectural firm Chapman Taylor is responsible for the design, creating interiors for cinemas in Dubai (the famous multiplex in Dubai Mall), London, Hamburg and Madrid. There has never been anything like it in Belarus, both in terms of the visual concept and the level of finish and decor.
+      The ideal 4K image is provided thanks to the ultra-modern laser projectors of the fourth series BARCO SP4K and SP2K made in Belgium. Surround multi-channel sound is reproduced by high-quality MAG AUDIO acoustic systems and American QSC cinema processors. Silver screens from the industry leader - Galaite Prism give you the opportunity to enjoy the depth of colors from anywhere in the room. All this makes our cinemas one of the most high-tech in Belarus!
+  </div>
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/IQT5YhOqG2k?si=exdZ8JE1X12dG1nz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 <h2 id="part2" style="text-align: center;"><strong>Part 2</strong></h2>
@@ -68,60 +83,40 @@ The ideal 4K image is provided thanks to the ultra-modern laser projectors of th
     </div>
 </div>
 <h2 id="part3" style="text-align: center;"><strong>Part 3</strong></h2>
-<div style="border:3px #333671 solid;">
-<h1 align="center">CERTIFICATE OF MEMBERSHIP IN RCM (REGISTER OF CINEMAS IN MINSK) FILM ASSISTANCE ASSOCIATION</h1>
-    <h2 style="color: #0059b2" align="center">UNIFIED REGISTER OF CINEMAS</h2>
-    <h1 style="color: red" align="center">CERTIFICATE</h1>
-    <h3 style="color: #0059b2" align="center">ABOUT ENTERING REQUIREMENTS</h3>
+<div class="bordered">
+    <h1 class="align-center">CERTIFICATE OF MEMBERSHIP IN RCM (REGISTER OF CINEMAS IN MINSK) FILM ASSISTANCE ASSOCIATION</h1>
+    <h2 class="align-center">UNIFIED REGISTER OF CINEMAS</h2>
+    <h1 class="align-center">CERTIFICATE</h1>
+    <h3 class="align-center">ABOUT ENTERING REQUIREMENTS</h3>
     <br><br><br>
-    <small>
-    <p style="margin:0;display:inline;float:left">Minsk</p>
-    <p style="margin:0;display:inline;float:right" >April 15, 2018</p>
-    </small>
+    <div class="small-text">
+        <p class="float-left margin0">Minsk</p>
+        <p class="float-right margin0">April 15, 2018</p>
+    </div>
+    <br><br><br>
+    <h4 class="align-center">Limited Liability Company «Cinema Technologies»</h4>
+    <p class="align-center">TIN 77364524965</p>
+    <h4 class="align-center">REGISTRY NUMBER: 4712</h4>
     <br><br>
-    <h4 align="center">Limited Liability Company «Cinema Technologies»</h4>
-    <p align="center">(TIN 77364524965)</p>
-    <h4 align="center"><u>REGISTRY NUMBER: 4712</u></h4>
-    <br><br>
-
     <div class="example3">
-         <img src="{% static 'images/cerf.jpg' %}"/>
+        <img src="{% static 'images/cerf.jpg' %}"/>
         <div class="example_text">
             <h6>Anisimova M.K.</h6>
             <h6>Director of the Film Help Association</h6>
         </div>
     </div>
-    <style>
-        .example3 {
-    display:inline-block;
-    position:relative;
-}
-.example3 .example_text {
-    display:block;
-    position:absolute;
-    left:0;
-    bottom:0;
-    width:100%;
-    box-sizing:border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    color:#fff;
-    padding:0;
-}
-.example3 h6 {
-    font-family:Arial, Helvetica, sans-serif;
-    font-size:18px;
-    color: black;
-}
-    </style>
-    <hr>
-    <p align="right"><small>Association Association of Cinemas in the Field of Film Help</small></p>
-    <p align="right"><small>101087 Minsk, st. Fadeeva, house 74</small></p>
-    <p align="right"><small>Tel. +375 (44) 74-124-78</small></p>
-    <p align="right">e-mail: office@cinema.by<small></small></p>
+
+    <div class="small-text align-right">
+        <p>Association Association of Cinemas in the Field of Film Help</p>
+        <p>101087 Minsk, st. Fadeeva, house 74</p>
+        <p>Tel. +375 (44) 74-124-78</p>
+        <p>e-mail: office@cinema.by</p>
+    </div>
 </div>
+
 <img src="{{dog_photo}}">
+<script src="{% static 'js/about.js' %}"></script>
+<script src="{% static 'js/text_animation.js' %}"></script>
 {% endblock %}
 
 
